@@ -1,0 +1,7 @@
+package org.example.Model;
+
+
+public abstract class Conta {
+    protected double saldo;
+    protected int numeroConta;
+}
