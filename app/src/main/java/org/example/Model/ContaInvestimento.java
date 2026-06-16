@@ -1,4 +1,4 @@
 package org.example.Model;
 
-public class ContaInvestimento {
+public class ContaInvestimento extends Conta{
 }

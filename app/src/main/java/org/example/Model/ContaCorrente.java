@@ -1,4 +1,4 @@
 package org.example.Model;
 
-public class ContaCorrente {
+public class ContaCorrente extends Conta {
 }
