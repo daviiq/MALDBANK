@@ -3,20 +3,24 @@
 Criação do MALDBANK como projeto final da matéria de engenharia de Software
 
 Sobre o Projeto
-O MALDBANK é um sistema de simulação bancária que permite o gerenciamento de usuários e suas contas, oferecendo operações financeiras com suporte a diferentes tipos de conta (EX: Corrente e Poupança).
 
-Principais Funcionalidades
-Gestão de Usuários: Cadastro e autenticação via terminal.
+O **MALDBANK** é um sistema de simulação bancária robusto que permite o gerenciamento completo de usuários e suas respectivas contas. Desenvolvido inteiramente em Java, o sistema oferece operações financeiras fundamentais com suporte a múltiplos tipos de conta de forma polimórfica (como **Conta Corrente** e **Conta Poupança**).
 
-Gestão de Contas: Abertura de contas com tipos distintos e polimórficos.
+### Principais Funcionalidades
 
-Operações Financeiras: Consultar saldo, Saque, Depósito, Transferência e Pagamento.
+* **Gestão de Usuários:** Fluxo de cadastro e autenticação simplificada via terminal.
+* **Gestão de Contas:** Abertura e vinculação de contas dinâmicas com comportamento polimórfico.
+* **Operações Financeiras:** * Consulta de saldo em tempo real
+  * Realização de saques e depósitos
+  * Transferências entre contas
+  * Pagamento de contas/boletos
+* **Histórico:** Emissão automatizada de extrato detalhado contendo todas as movimentações da conta ativa.
 
-Histórico: Emissão de extrato de movimentações.
+---
 
-Arquitetura do Sistema
-O sistema foi desenhado para manter o baixo acoplamento e alta coesão, utilizando um padrão de repositório em memória para a persistência temporária dos dados durante a execução da sessão.
-## Fluxograma do Sistema
+## Arquitetura do Sistema
+
+Alinhado com os princípios de design de software modernos, o sistema foi projetado sob os pilares de **baixo acoplamento** e **alta coesão**. Por se tratar de um protótipo ágil, utiliza o padrão de **repositório em memória** (*In-Memory Repository*), garantindo a persistência temporária e o gerenciamento dos dados de forma segura durante o ciclo de vida da sessão atual.
 
 ```mermaid
 graph TD
