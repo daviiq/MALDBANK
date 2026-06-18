@@ -22,6 +22,8 @@ O **MALDBANK** é um sistema de simulação bancária robusto que permite o gere
 
 Alinhado com os princípios de design de software modernos, o sistema foi projetado sob os pilares de **baixo acoplamento** e **alta coesão**. Por se tratar de um protótipo ágil, utiliza o padrão de **repositório em memória** (*In-Memory Repository*), garantindo a persistência temporária e o gerenciamento dos dados de forma segura durante o ciclo de vida da sessão atual.
 
+## Fluxograma de interação:
+
 ```mermaid
 graph TD
     
