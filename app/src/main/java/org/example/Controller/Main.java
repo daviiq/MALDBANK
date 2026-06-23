@@ -51,63 +51,68 @@ public class Main {
 
         int escolhaConta = scanner.nextInt();
 
-        if (escolhaConta == 2) {
-            Random random = new Random();
-            StringBuilder numeroContaRandom = new StringBuilder();
-            int quantidadeDigitos = 9;
+        switch (escolhaConta) {
+            case 2:
+                Random random = new Random();
+                StringBuilder numeroContaRandom = new StringBuilder();
+                int quantidadeDigitos = 9;
 
-            for (int i = 0; i < quantidadeDigitos; i++) {
-                int digito = random.nextInt(10);
-                numeroContaRandom.append(digito);
-            }
-
-            String numeroConta = numeroContaRandom.toString();
-
-            ContaInvestimento contaInvestimento = new ContaInvestimento(usuario.getNome(), usuario, numeroConta);
-
-            System.out.println("Digite 0 para sair.");
-            System.out.println("Escolha as opções: ");
-            System.out.println("1 - Depositar");
-            System.out.println("2 - Sacar.");
-            System.out.println("3 - Investir.");
-
-            int opcoesContaInvestimento = scanner.nextInt();
-
-            if (opcoesContaInvestimento == 1) {
-                System.out.println("Seu saldo é de R$ " + contaInvestimento.getSaldo());
-                System.out.println("Quanto deseja depositar?: ");
-                double deposito = scanner.nextDouble();
-                contaInvestimento.depositar(deposito);
-                System.out.println("Você depositou R$ " + deposito + " e tem R$ " + contaInvestimento.getSaldo()
-                        + " de saldo.");
-            } else if (opcoesContaInvestimento == 2) {
-                System.out.println("Seu saldo é de R$ " + contaInvestimento.getSaldo());
-                System.out.println("Quanto deseja sacar?: ");
-                double saque = scanner.nextDouble();
-                contaInvestimento.sacar(saque);
-                System.out.println("Você sacou R$ " + saque + " e tem R$ " + contaInvestimento.getSaldo()
-                        + " de saldo.");
-            } else if (opcoesContaInvestimento == 3) {
-                System.out.println("Escolha os tipos de investimento: ");
-                System.out.println("1 - CDB.");
-                System.out.println("2 - Tesouro Direto.");
-                System.out.println("3 - IBV.");
-                System.out.println("4 - FCI.");
-                System.out.println("5 - LCI.");
-
-                int escolhaInvestimento = scanner.nextInt();
-                if (escolhaInvestimento == 1) {
-                    calcularInvestimento("CDB", contaInvestimento);
-                } else if (escolhaInvestimento == 2) {
-                    calcularInvestimento("Tesouro Direto", contaInvestimento);
-                } else if (escolhaInvestimento == 3) {
-                    calcularInvestimento("IBV", contaInvestimento);
-                } else if (escolhaInvestimento == 4) {
-                    calcularInvestimento("FCI", contaInvestimento);
-                } else if (escolhaInvestimento == 5) {
-                    calcularInvestimento("LCI", contaInvestimento);
+                for (int i = 0; i < quantidadeDigitos; i++) {
+                    int digito = random.nextInt(10);
+                    numeroContaRandom.append(digito);
                 }
-            }
+
+                String numeroConta = numeroContaRandom.toString();
+
+                ContaInvestimento contaInvestimento = new ContaInvestimento(usuario.getNome(), usuario, numeroConta);
+
+                System.out.println("Digite 0 para sair.");
+                System.out.println("Escolha as opções: ");
+                System.out.println("1 - Depositar");
+                System.out.println("2 - Sacar.");
+                System.out.println("3 - Investir.");
+
+                int opcoesContaInvestimento = scanner.nextInt();
+
+                switch (opcoesContaInvestimento) {
+                    case 1:
+                        System.out.println("Seu saldo é de R$ " + contaInvestimento.getSaldo());
+                        System.out.println("Quanto deseja depositar?: ");
+                        double deposito = scanner.nextDouble();
+                        contaInvestimento.depositar(deposito);
+                        System.out.println("Você depositou R$ " + deposito + " e tem R$ " + contaInvestimento.getSaldo()
+                                + " de saldo.");
+                        return;
+                    case 2:
+                        System.out.println("Seu saldo é de R$ " + contaInvestimento.getSaldo());
+                        System.out.println("Quanto deseja sacar?: ");
+                        double saque = scanner.nextDouble();
+                        contaInvestimento.sacar(saque);
+                        System.out.println("Você sacou R$ " + saque + " e tem R$ " + contaInvestimento.getSaldo()
+                                + " de saldo.");
+                    case 3:
+                        System.out.println("Escolha os tipos de investimento: ");
+                        System.out.println("1 - CDB.");
+                        System.out.println("2 - Tesouro Direto.");
+                        System.out.println("3 - IBV.");
+                        System.out.println("4 - FCI.");
+                        System.out.println("5 - LCI.");
+
+                        int escolhaInvestimento = scanner.nextInt();
+
+                        switch  (escolhaInvestimento) {
+                            case 1:
+                                calcularInvestimento("CDB", contaInvestimento);
+                            case 2:
+                                calcularInvestimento("Tesouro Direto", contaInvestimento);
+                            case 3:
+                                calcularInvestimento("IBV", contaInvestimento);
+                            case 4:
+                                calcularInvestimento("LCI", contaInvestimento);
+                            case 5:
+                                calcularInvestimento("LCI", contaInvestimento);
+                        }
+                }
         }
     }
 
