@@ -65,24 +65,48 @@ public class Main {
 
             ContaInvestimento contaInvestimento = new ContaInvestimento(usuario.getNome(), usuario, numeroConta);
 
-            System.out.println("Escolha os tipos de investimento: ");
-            System.out.println("1 - CDB.");
-            System.out.println("2 - Tesouro Direto.");
-            System.out.println("3 - IBV.");
-            System.out.println("4 - FCI.");
-            System.out.println("5 - LCI.");
+            System.out.println("Digite 0 para sair.");
+            System.out.println("Escolha as opções: ");
+            System.out.println("1 - Depositar");
+            System.out.println("2 - Sacar.");
+            System.out.println("3 - Investir.");
 
-            int escolhaInvestimento = scanner.nextInt();
-            if (escolhaInvestimento == 1) {
-                calcularInvestimento("CDB", contaInvestimento);
-            } else if (escolhaInvestimento == 2) {
-                calcularInvestimento("Tesouro Direto", contaInvestimento);
-            } else if (escolhaInvestimento == 3) {
-                calcularInvestimento("IBV", contaInvestimento);
-            } else if (escolhaInvestimento == 4) {
-                calcularInvestimento("FCI", contaInvestimento);
-            } else if (escolhaInvestimento == 5) {
-                calcularInvestimento("LCI", contaInvestimento);
+            int opcoesContaInvestimento = scanner.nextInt();
+
+            if (opcoesContaInvestimento == 1) {
+                System.out.println("Seu saldo é de R$ " + contaInvestimento.getSaldo());
+                System.out.println("Quanto deseja depositar?: ");
+                double deposito = scanner.nextDouble();
+                contaInvestimento.depositar(deposito);
+                System.out.println("Você depositou R$ " + deposito + " e tem R$ " + contaInvestimento.getSaldo()
+                        + " de saldo.");
+            } else if (opcoesContaInvestimento == 2) {
+                System.out.println("Seu saldo é de R$ " + contaInvestimento.getSaldo());
+                System.out.println("Quanto deseja sacar?: ");
+                double saque = scanner.nextDouble();
+                contaInvestimento.sacar(saque);
+                System.out.println("Você sacou R$ " + saque + " e tem R$ " + contaInvestimento.getSaldo()
+                        + " de saldo.");
+            } else if (opcoesContaInvestimento == 3) {
+                System.out.println("Escolha os tipos de investimento: ");
+                System.out.println("1 - CDB.");
+                System.out.println("2 - Tesouro Direto.");
+                System.out.println("3 - IBV.");
+                System.out.println("4 - FCI.");
+                System.out.println("5 - LCI.");
+
+                int escolhaInvestimento = scanner.nextInt();
+                if (escolhaInvestimento == 1) {
+                    calcularInvestimento("CDB", contaInvestimento);
+                } else if (escolhaInvestimento == 2) {
+                    calcularInvestimento("Tesouro Direto", contaInvestimento);
+                } else if (escolhaInvestimento == 3) {
+                    calcularInvestimento("IBV", contaInvestimento);
+                } else if (escolhaInvestimento == 4) {
+                    calcularInvestimento("FCI", contaInvestimento);
+                } else if (escolhaInvestimento == 5) {
+                    calcularInvestimento("LCI", contaInvestimento);
+                }
             }
         }
     }
