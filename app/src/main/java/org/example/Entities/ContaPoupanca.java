@@ -10,7 +10,7 @@ public class ContaPoupanca extends Conta {
     }
     
     @Override
-    public void setNumeroConta(int numeroConta) {
+    public void setNumeroConta(String numeroConta) {
         super.setNumeroConta(numeroConta);
     }
 
