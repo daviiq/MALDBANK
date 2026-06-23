@@ -10,6 +10,17 @@ public class ContaCorrente extends Conta {
         this.tipoConta = TipoConta.CORRENTE;
     }
 
+    
+    @Override
+    public void setNumeroConta(int numeroConta) {
+        super.setNumeroConta(numeroConta);
+    }
+
+    @Override
+    public double getSaldo() {
+        return super.getSaldo();
+    }
+
     //Método de depósito que atualiza o saldo da conta
     public void depositar(double valor) {
         if (valor > 0) {

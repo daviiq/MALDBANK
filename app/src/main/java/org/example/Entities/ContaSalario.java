@@ -9,6 +9,17 @@ public class ContaSalario extends Conta {
         this.tipoConta = TipoConta.SALARIO;
     }
 
+    
+    @Override
+    public void setNumeroConta(int numeroConta) {
+        super.setNumeroConta(numeroConta);
+    }
+
+    @Override
+    public double getSaldo() {
+        return super.getSaldo();
+    }
+
     public void sacar(double valor) {
         if (valor > 0) {
             saldo -= valor;

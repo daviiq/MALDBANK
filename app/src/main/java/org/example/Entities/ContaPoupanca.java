@@ -8,6 +8,16 @@ public class ContaPoupanca extends Conta {
         super(titular, usuario, numeroConta);
         this.tipoConta = TipoConta.POUPANCA;
     }
+    
+    @Override
+    public void setNumeroConta(int numeroConta) {
+        super.setNumeroConta(numeroConta);
+    }
+
+    @Override
+    public double getSaldo() {
+        return super.getSaldo();
+    }
 
     //Método de depósito que atualiza o saldo da conta
     public void depositar(double valor) {
