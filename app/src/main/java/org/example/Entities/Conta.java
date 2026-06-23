@@ -1,16 +1,16 @@
-package org.example.Model;
+package org.example.Entities;
 
-import org.example.Repository.TipoConta;
-import org.example.Repository.Usuario;
+import org.example.Repositories.TipoConta;
+import org.example.Repositories.Usuario;
 
 public abstract class Conta {
     protected double saldo = 0;
-    protected int numeroConta;
+    protected String numeroConta;
     protected String titular;
     protected Usuario usuario;
     protected TipoConta tipoConta;
 
-    public Conta(String titular, Usuario usuario, int numeroConta) {
+    public Conta(String titular, Usuario usuario, String numeroConta) {
         this.titular = titular;
         this.usuario = usuario;
         this.numeroConta = numeroConta;
@@ -19,10 +19,10 @@ public abstract class Conta {
     }
 
     //GETTERS e SETTERS
-    public int getNumeroConta() {
+    public String getNumeroConta() {
         return numeroConta;
     }
-    public void setNumeroConta(int numeroConta) {
+    public void setNumeroConta(String numeroConta) {
         this.numeroConta = numeroConta;
     }
 

@@ -1,10 +1,10 @@
-package org.example.Repository;
+package org.example.Repositories;
 
 public class Usuario {
     private String nome;
     private String CPF;
     private int idade;
-    private int telefone;
+    private String telefone;
     private String email;
 
     public Usuario() {}
@@ -31,10 +31,10 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
@@ -44,4 +44,13 @@ public class Usuario {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void imprimirDados() {
+        System.out.println("Nome: " + nome);
+        System.out.println("CPF: " + CPF);
+        System.out.println("Idade: " + idade);
+        System.out.println("Telefone: " + telefone);
+        System.out.println("Email: " + email);
+    }
+
 }

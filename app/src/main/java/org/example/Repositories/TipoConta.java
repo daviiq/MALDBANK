@@ -1,4 +1,4 @@
-package org.example.Repository;
+package org.example.Repositories;
 
 public enum TipoConta {
 CORRENTE,INVESTIMENTO,POUPANCA,SALARIO
