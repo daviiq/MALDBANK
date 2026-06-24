@@ -1,5 +1,14 @@
 package org.example.Controller;
 
+import org.example.Entities.ContaCorrente;
+import org.example.Entities.ContaInvestimento;
+import org.example.Entities.Investimento;
+import org.example.Repositories.Usuario;
+
+import java.sql.SQLOutput;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Random;
 import java.util.Scanner;
 
 import org.example.Model.User;
