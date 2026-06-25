@@ -81,6 +81,133 @@ graph TD
     
     OpcaoMP -->|3| Fim([Fim: Encerrar Programa]):::endpoint
 ```
+## Processo de Software
+
+Este projeto foi desenvolvido com uma abordagem ágil incremental, seguindo práticas de divisão de responsabilidades e entregas iterativas. O grupo repartiu as atividades entre:
+
+- Modelagem e design de requisitos
+- Implementação do fluxo de cadastro e autenticação
+- Separação de serviços e repositórios
+- Adição de histórico de transações e investimentos
+- Testes unitários e ajustes de arquitetura
+
+## Requisitos de Software
+
+### Requisitos funcionais
+- Cadastro de usuário com escolha do tipo de conta no momento da criação
+- Autenticação por CPF e senha
+- Atualização e exclusão de cadastro apenas após login
+- Depósito, saque, transferência por CPF e visualização de saldo
+- Histórico de movimentações completo (depósito, saque, PIX, investimento)
+- Investimentos com cálculo simples de retorno e registro em extrato
+- Menu subdividido em opções de cadastro e operações financeiras
+
+### Requisitos não funcionais
+- Implementação em Java com Gradle
+- Arquitetura modular com camadas de Controller, Service, Repository e Model
+- Persistência em memória para o protótipo
+- Código com alta coesão e baixo acoplamento
+
+## Modelo de Software
+
+### Diagrama de fluxo
+
+```mermaid
+graph TD
+    Start([Início]) --> MenuPrincipal
+    MenuPrincipal -->|1| Cadastro
+    MenuPrincipal -->|2| Login
+    MenuPrincipal -->|3| Sair
+    Cadastro --> FimCadastro
+    Login --> SessaoUsuario
+    SessaoUsuario -->|Opções de cadastro| MenuCadastro
+    SessaoUsuario -->|Operações financeiras| MenuFinanceiro
+    MenuFinanceiro --> Historico
+    MenuFinanceiro --> Historico
+    MenuFinanceiro --> Investimentos
+    MenuFinanceiro --> Logout
+```
+
+### Diagrama de classes
+
+```mermaid
+classDiagram
+    class User {
+        +String name
+        +String cpf
+        +String password
+        +TipoConta tipoDeConta
+        +double saldo
+        +List<Transacao> transacoes
+        +List<Investimento> investimentos
+        +deposit(double)
+        +withdraw(double)
+        +addTransacao(Transacao)
+        +addInvestimento(Investimento)
+    }
+    class UsuarioService {
+        +cadastrarUsuario(...)
+        +authenticate(...)
+        +atualizarUsuario(...)
+        +deletarUsuario(...)
+    }
+    class FinancaService {
+        +depositar(...)
+        +sacar(...)
+        +transferir(...)
+        +investir(...)
+    }
+    class UserRepository {
+        +saveUser(User)
+        +getUser(String)
+        +updateUser(String, User)
+        +deleteUser(String)
+    }
+    class Transacao {
+        +TipoTransacao tipo
+        +double valor
+        +LocalDateTime dataHora
+        +String descricao
+    }
+    class Investimento {
+        +String nome
+        +double valor
+        +LocalDate dataDeRetirada
+        +double retorno
+        +calcularRetorno()
+    }
+
+    User --> UserRepository
+    UsuarioService --> UserRepository
+    FinancaService --> UserRepository
+    User --> Transacao
+    User --> Investimento
+```
+
+## Princípios e Propriedades de Projeto
+
+O projeto aplica os princípios a seguir:
+
+- Integridade conceitual: cada classe representa um elemento de domínio claro
+- Coesão: `UsuarioService` trata apenas de cadastro e autenticação, `FinancaService` gerencia finanças
+- Baixo acoplamento: serviços dependem de `UserRepository` por injeção no construtor
+- Ocultação de informação: atributos privados com getters/setters controlados
+- Princípios SOLID: separação de responsabilidades e injeção de dependência
+- Preferência por composição: `User` compõe `Transacao` e `Investimento`
+- Lei de Demeter: métodos operam sobre objetos próximos e evitam navegação profunda
+
+## Testes de Software
+
+O projeto utiliza JUnit para testes unitários. A dependência Mockito foi adicionada para suportar mocks em futuras validações de serviço contra dependências externas.
+
+| Cobertura | Status |
+| :--- | :--- |
+| Testes de modelo de usuário | existente em `app/src/test/java` |
+| Testes de contas e investimentos | existente em `app/src/test/java` |
+| Suporte a mocks | dependência adicionada |
+
+---
+
 ## Tecnologias e Metodologias
 
 | Categoria | Tecnologias / Práticas |

@@ -1,10 +1,10 @@
+package org.example;
+
 import org.example.Entities.Conta;
 import org.example.Entities.ContaCorrente;
 import org.example.Repositories.Usuario;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TestContaCorrente {
 

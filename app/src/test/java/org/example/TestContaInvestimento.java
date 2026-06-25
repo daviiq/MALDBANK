@@ -1,3 +1,5 @@
+package org.example;
+
 import org.example.Entities.ContaInvestimento;
 import org.example.Entities.Investimento;
 import org.example.Repositories.TipoConta;
@@ -8,28 +10,13 @@ import java.time.LocalDate;
 
 class TestContaInvestimento {
 
-    Usuario usuario = new Usuario();
-    ContaInvestimento contaInvestimento = new ContaInvestimento("login", usuario, "123");
-
-    @BeforeAll
-    static void mensagemInicial() {
-        System.out.println("Inicio dos testes de ContaInvestimento: ");
-    }
-
-    @AfterAll
-    static void mensagemFinal() {
-        System.out.println("Fim de todos os testes de ContaInvestimento.");
-    }
+    private Usuario usuario;
+    private ContaInvestimento contaInvestimento;
 
     @BeforeEach
     void setup() {
         usuario = new Usuario();
         contaInvestimento = new ContaInvestimento("login", usuario, "123");
-    }
-
-    @AfterEach
-    void tearDown() {
-        System.out.println("Teste concluído com sucesso.");
     }
 
     @Test

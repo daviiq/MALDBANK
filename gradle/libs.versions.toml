@@ -5,8 +5,10 @@
 guava = "33.4.6-jre"
 junit = "5.12.1"
 junit-platform = "1.12.1"
+mockito = "5.5.0"
 
 [libraries]
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
 junit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit-platform" }
+mockito = { module = "org.mockito:mockito-core", version.ref = "mockito" }
