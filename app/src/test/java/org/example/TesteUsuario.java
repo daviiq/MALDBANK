@@ -1,53 +1,65 @@
-// package org.example;
+package org.example;
 
-// import org.example.Model.User;
-// import org.example.Repositories.TipoConta;
-// import org.junit.jupiter.api.*;
-// import static org.junit.jupiter.api.Assertions.*;
+import org.example.Entities.ContaCorrente;
+import org.example.Repositories.Usuario;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-// class TesteUsuario {
+class TesteUsuario {
 
-//     private User user;
+    Usuario usuario = new Usuario("login", "123", 30, "33468613", "email@gmail.com");
+    ContaCorrente contaCorrente = new ContaCorrente("login", usuario, "123");
 
-//     @BeforeEach
-//     void setup() {
-//         user = new User("Exemplo", "123", "senha");
-//         user.setTipoDeConta(TipoConta.CORRENTE);
-//     }
+    @BeforeAll
+    static void mensagemInicial() {
+        System.out.println("Inicio dos testes: ");
+    }
 
-//     // Testes da classe Usuário.
-//     @Test
-//     @DisplayName("Testa se o nome está sendo inserido no usuário.")
-//     void testeNomeUsuario() {
-//         usuario.setNome("Exemplo");
-//         assertEquals("Exemplo", usuario.getNome());
-//     }
+    @AfterAll
+    static void mensagemFinal() {
+        System.out.println("Fim de todos os testes.");
+    }
 
-//     @Test
-//     @DisplayName("Testa se o CPF está sendo inserido no usuário.")
-//     void testeCPFUsuario() {
-//         usuario.setCPF("123");
-//         assertEquals("123", usuario.getCPF());
-//     }
+    @BeforeEach
+    void setup() {
+        usuario = new Usuario("login", "123", 30, "33468613", "email@gmail.com");
+        contaCorrente = new ContaCorrente("login", usuario, "123");
+    }
 
-//     @Test
-//     @DisplayName("Testa se a idade está sendo inserida no usuário.")
-//     void testeIdadeUsuario() {
-//         usuario.setIdade(10);
-//         assertEquals(10, usuario.getIdade());
-//     }
+    @AfterEach
+    void tearDown() {
+        System.out.println("Teste concluído com sucesso.");
+    }
 
-//     @Test
-//     @DisplayName("Testa se o telefone está sendo inserido no usuário.")
-//     void testeTelefoneUsuario() {
-//         usuario.setTelefone("123");
-//         assertEquals("123", usuario.getTelefone());
-//     }
+    // Testes da classe Usuário.
+    @Test
+    @DisplayName("Testa se o nome está sendo inserido no usuário.")
+    void testeNomeUsuario() {
+        assertEquals("login", usuario.getNome());
+    }
 
-//     @Test
-//     @DisplayName("Testa se o email está sendo inserido no usuário.")
-//     void testeEmailUsuario() {
-//         usuario.setEmail("lucas@gmail.com");
-//         assertEquals("lucas@gmail.com", usuario.getEmail());
-//     }
-// }
+    @Test
+    @DisplayName("Testa se o CPF está sendo inserido no usuário.")
+    void testeCPFUsuario() {
+        assertEquals("123", usuario.getCPF());
+    }
+
+    @Test
+    @DisplayName("Testa se a idade está sendo inserida no usuário.")
+    void testeIdadeUsuario() {
+        assertEquals(30, usuario.getIdade());
+    }
+
+    @Test
+    @DisplayName("Testa se o telefone está sendo inserido no usuário.")
+    void testeTelefoneUsuario() {
+        assertEquals("33468613", usuario.getTelefone());
+    }
+
+    @Test
+    @DisplayName("Testa se o email está sendo inserido no usuário.")
+    void testeEmailUsuario() {
+        assertEquals("email@gmail.com", usuario.getEmail());
+    }
+
+}
