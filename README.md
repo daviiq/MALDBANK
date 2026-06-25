@@ -81,6 +81,123 @@ graph TD
     
     OpcaoMP -->|3| Fim([Fim: Encerrar Programa]):::endpoint
 ```
+## Diagrama de Classes:
+```mermaid
+classDiagram
+    direction TB
+
+    %% Estilos de Cores para Melhor Leitura
+    style App fill:#ececff,stroke:#9370db,stroke-width:2px
+    style Main fill:#ececff,stroke:#9370db,stroke-width:2px
+    style Pagamento fill:#fff2cc,stroke:#d6b656,stroke-width:2px
+    style TipoConta fill:#f8cecc,stroke:#b85450,stroke-width:2px
+    style Conta fill:#e1d5e7,stroke:#9673a6,stroke-width:2px,stroke-dasharray: 5 5
+
+    %% Classes fora de subgraph para evitar conflitos de renderização no motor antigo do Mermaid
+    class App {
+        +main(args: String[])$ void
+    }
+    class Main {
+        +main(args: String[])$ void
+    }
+    class User {
+        private String name
+        private String cpf
+        private String password
+        private String tipoDeConta
+    }
+    class UserRepository {
+        +newUser(usuario: User, CPF: String) void
+        +upDateUser(CPF: String, usuario: User) void
+        +deleteUser(CPF: String) void
+        +getUser(CPF: String) User
+    }
+    class Usuario {
+        private String nome
+        private String CPF
+        private int idade
+        private String telefone
+        private String email
+        +imprimirDados() void
+    }
+    class TipoConta {
+        <<enumeration>>
+        CORRENTE
+        INVESTIMENTO
+        POUPANCA
+        SALARIO
+    }
+    class Pagamento {
+        <<interface>>
+        +pagar(valor: double) void
+    }
+    class UsuarioService {
+        ~UserRepository userRepository
+        private User usuario
+        +cadastrarUsuario(nome, CPF, tipoDeConta, password) void
+        +atualizarUsuario(CPF, usuarioAtualizado) void
+        +deletarUsuario(CPF) void
+        +getUsuario(CPF) User
+    }
+    class Conta {
+        <<abstract>>
+        #double saldo
+        #String numeroConta
+        #String titular
+        #Usuario usuario
+        #TipoConta tipoConta
+        #List~Transacao~ historico
+    }
+    class ContaCorrente {
+        +depositar(valor: double) void
+        +sacar(valor: double) void
+        +pagar(valor: double) void
+    }
+    class ContaInvestimento {
+        +depositar(valor: double) void
+        +sacar(valor: double) void
+        +investir(investimento: Investimento) void
+    }
+    class ContaPoupanca {
+        +depositar(valor: double) void
+        +renderJuros(taxa: double) void
+    }
+    class ContaSalario {
+        +sacar(valor: double) void
+    }
+    class Investimento {
+        private String nome
+        private double valor
+        ~LocalDate dataDeRetirada
+        ~double retorno
+        +calcularRetorno() double
+    }
+    class Transacao {
+    }
+
+    %% Ligações de Infraestrutura e Negócio
+    App ..> Main : chama
+    Main --> UserRepository : instancia
+    Main --> UsuarioService : depende
+    UsuarioService --> UserRepository : utiliza
+    UsuarioService --> User : gerencia
+
+    %% Core Business (Relacionamentos de Conta)
+    Conta "1" --> "1" Usuario : pertence a
+    Conta "1" --> "1" TipoConta : define tipo via
+    Conta "1" *--> "*" Transacao : possui histórico de
+
+    %% Estrutura de Herança (Polimorfismo)
+    ContaCorrente --|> Conta : estende
+    ContaInvestimento --|> Conta : estende
+    ContaPoupanca --|> Conta : estende
+    ContaSalario --|> Conta : estende
+
+    %% Implementações e Dependências de Métodos
+    ContaCorrente ..|> Pagamento : implementa
+    ContaInvestimento ..> Investimento : utiliza
+```
+
 ## Tecnologias e Metodologias
 
 | Categoria | Tecnologias / Práticas |
