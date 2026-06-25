@@ -19,17 +19,43 @@ public abstract class Conta {
     }
 
     //GETTERS e SETTERS
-    public String getNumeroConta() {
-        return numeroConta;
-    }
-    public void setNumeroConta(String numeroConta) {
-        this.numeroConta = numeroConta;
-    }
-
     public double getSaldo() {
         return saldo;
     }
 
-    //Método de depósito que atualiza o saldo da conta
-    //public void depositar(double valor) {}
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
+    public String getNumeroConta() {
+        return numeroConta;
+    }
+
+    public void setNumeroConta(String numeroConta) {
+        this.numeroConta = numeroConta;
+    }
+
+    public String getTitular() {
+        return titular;
+    }
+
+    public void setTitular(String titular) {
+        this.titular = titular;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public TipoConta getTipoConta() {
+        return tipoConta;
+    }
+
+    public void setTipoConta(TipoConta tipoConta) {
+        this.tipoConta = tipoConta;
+    }
 }
