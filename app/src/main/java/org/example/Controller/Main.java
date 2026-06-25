@@ -19,8 +19,6 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-
-
         UserRepository userRepository = new UserRepository();
         UsuarioService usuarioService = new UsuarioService(userRepository);
 
