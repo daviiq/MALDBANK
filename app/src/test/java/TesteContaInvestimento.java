@@ -6,9 +6,9 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
 
-class TestContaInvestimento {
+class TesteContaInvestimento {
 
-    Usuario usuario = new Usuario();
+    Usuario usuario = new Usuario("login", "123", 30, "33468613", "email@gmail.com");
     ContaInvestimento contaInvestimento = new ContaInvestimento("login", usuario, "123");
 
     @BeforeAll
@@ -23,7 +23,7 @@ class TestContaInvestimento {
 
     @BeforeEach
     void setup() {
-        usuario = new Usuario();
+        Usuario usuario = new Usuario("login", "123", 30, "33468613", "email@gmail.com");
         contaInvestimento = new ContaInvestimento("login", usuario, "123");
     }
 

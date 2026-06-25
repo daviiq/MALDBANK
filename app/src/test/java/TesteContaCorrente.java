@@ -1,14 +1,12 @@
-import org.example.Entities.Conta;
 import org.example.Entities.ContaCorrente;
 import org.example.Repositories.Usuario;
 import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class TestContaCorrente {
+class TesteContaCorrente {
 
-    Usuario usuario = new Usuario();
+    Usuario usuario = new Usuario("login", "123", 30, "33468613", "email@gmail.com");
     ContaCorrente contaCorrente = new ContaCorrente("login", usuario, "123");
 
     @Test

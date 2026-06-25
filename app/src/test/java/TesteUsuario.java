@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TesteUsuario {
 
-    Usuario usuario = new Usuario();
+    Usuario usuario = new Usuario("login", "123", 30, "33468613", "email@gmail.com");
     ContaCorrente contaCorrente = new ContaCorrente("login", usuario, "123");
 
     @BeforeAll
@@ -20,7 +20,7 @@ class TesteUsuario {
 
     @BeforeEach
     void setup() {
-        usuario = new Usuario();
+        usuario = new Usuario("login", "123", 30, "33468613", "email@gmail.com");
         contaCorrente = new ContaCorrente("login", usuario, "123");
     }
 
@@ -33,35 +33,30 @@ class TesteUsuario {
     @Test
     @DisplayName("Testa se o nome está sendo inserido no usuário.")
     void testeNomeUsuario() {
-        usuario.setNome("Exemplo");
-        assertEquals("Exemplo", usuario.getNome());
+        assertEquals("login", usuario.getNome());
     }
 
     @Test
     @DisplayName("Testa se o CPF está sendo inserido no usuário.")
     void testeCPFUsuario() {
-        usuario.setCPF("123");
         assertEquals("123", usuario.getCPF());
     }
 
     @Test
     @DisplayName("Testa se a idade está sendo inserida no usuário.")
     void testeIdadeUsuario() {
-        usuario.setIdade(10);
-        assertEquals(10, usuario.getIdade());
+        assertEquals(30, usuario.getIdade());
     }
 
     @Test
     @DisplayName("Testa se o telefone está sendo inserido no usuário.")
     void testeTelefoneUsuario() {
-        usuario.setTelefone("123");
-        assertEquals("123", usuario.getTelefone());
+        assertEquals("33468613", usuario.getTelefone());
     }
 
     @Test
     @DisplayName("Testa se o email está sendo inserido no usuário.")
     void testeEmailUsuario() {
-        usuario.setEmail("lucas@gmail.com");
-        assertEquals("lucas@gmail.com", usuario.getEmail());
+        assertEquals("email@gmail.com", usuario.getEmail());
     }
 }

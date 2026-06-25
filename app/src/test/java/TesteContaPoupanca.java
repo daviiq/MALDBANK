@@ -4,9 +4,9 @@ import org.example.Repositories.Usuario;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-class TestContaPoupanca {
+class TesteContaPoupanca {
 
-    Usuario usuario = new Usuario();
+    Usuario usuario = new Usuario("login", "123", 30, "33468613", "email@gmail.com");
     ContaPoupanca contaPoupanca = new ContaPoupanca("login", usuario, "123");
 
     @BeforeAll
@@ -21,7 +21,7 @@ class TestContaPoupanca {
 
     @BeforeEach
     void setup() {
-        usuario = new Usuario();
+        Usuario usuario = new Usuario("login", "123", 30, "33468613", "email@gmail.com");
         contaPoupanca = new ContaPoupanca("login", usuario, "123");
     }
 
