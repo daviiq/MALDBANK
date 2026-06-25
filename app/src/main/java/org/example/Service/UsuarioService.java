@@ -2,35 +2,47 @@ package org.example.Service;
 
 import org.example.Repository.UserRepository;
 import org.example.Model.User;
+import org.example.Repositories.TipoConta;
 
 public class UsuarioService {
 
-    UserRepository userRepository;
-
-    private User usuario;
+    private final UserRepository userRepository;
 
     public UsuarioService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public void cadastrarUsuario(String nome, String CPF, String tipoDeConta, String password) {
-        User usuario = new User(nome, CPF, password);
+    public boolean cadastrarUsuario(String nome, String cpf, TipoConta tipoDeConta, String password) {
+        if (userRepository.getUser(cpf) != null) {
+            return false;
+        }
+
+        User usuario = new User(nome, cpf, password);
         usuario.setTipoDeConta(tipoDeConta);
-        userRepository.newUser(usuario, CPF);
+        userRepository.saveUser(usuario);
+        return true;
     }
 
-    public void atualizarUsuario(String CPF, User usuarioAtualizado) {
-        userRepository.upDateUser(CPF, usuarioAtualizado);
+    public boolean atualizarUsuario(String cpf, User usuarioAtualizado) {
+        return userRepository.updateUser(cpf, usuarioAtualizado);
     }
 
-    public void deletarUsuario(String CPF) {
-        userRepository.deleteUser(CPF);
+    public boolean deletarUsuario(String cpf) {
+        return userRepository.deleteUser(cpf);
     }
 
-
-    public User getUsuario(String CPF) {
-        return userRepository.getUser(CPF);
+    public User getUsuario(String cpf) {
+        return userRepository.getUser(cpf);
     }
+
+    public User authenticate(String cpf, String password) {
+        User usuario = userRepository.getUser(cpf);
+        if (usuario != null && usuario.getPassword().equals(password)) {
+            return usuario;
+        }
+        return null;
+    }
+
 }
 
 
