@@ -25,188 +25,227 @@ Alinhado com os princípios de design de software modernos, o sistema foi projet
 ## Fluxograma de interação:
 
 ```mermaid
-graph TD
-    
-    Start([Inicio: Execucao do Sistema MALDBANK]) --> MenuPrincipal[Exibir Menu Principal: 1. Cadastrar Usuario, 2. Selecionar Usuario, 3. Sair]:::process
-    
-    MenuPrincipal --> OpcaoMP{Qual a opcao selecionada?}:::decision
-    
-    %% FLUXO 1: CADASTRAR USUARIO
-    OpcaoMP -->|1| SolicitDadosUser[Solicitar Nome e CPF do Usuario]:::process
-    SolicitDadosUser --> CheckUserExiste{CPF ja existe no Repository?}:::decision
-    CheckUserExiste -->|Sim| ErrUser[Exibir Erro: Usuario ja cadastrado]:::process
-    ErrUser --> MenuPrincipal
-    CheckUserExiste -->|Não| SalvarUser[Instanciar objeto Usuario e salvar no Repository]:::process
-    SalvarUser --> MenuPrincipal
-    
-    %% FLUXO 2: SELECIONAR USUARIO
-    OpcaoMP -->|2| SolicitCPF[Solicitar CPF para Identificacao]:::process
-    SolicitCPF --> BuscarUser{Usuario cadastrado no Repository?}:::decision
-    BuscarUser -->|Não| ErrNoUser[Exibir Erro: Usuario nao encontrado]:::process
-    ErrNoUser --> MenuPrincipal
-    BuscarUser -->|Sim| DefinirSessaoUser[Definir objeto Usuario como logado]:::process
-    
-    DefinirSessaoUser --> MenuUsuario[Exibir Menu do Usuario: 1. Criar Conta, 2. Acessar Conta, 3. Voltar]:::process
-    MenuUsuario --> OpcaoMU{Qual a opcao selecionada?}:::decision
-    OpcaoMU -->|3| MenuPrincipal
-    
-    %% SUBFLUXO: CRIAR CONTA
-    OpcaoMU -->|1| SolicitTipo[Solicitar Tipo: 1. Corrente, 2. Poupanca]:::process
-    SolicitTipo --> InstanciarConta[Instanciar subclasse Conta e salvar no Repository]:::process
-    InstanciarConta --> MenuUsuario
-    
-    %% SUBFLUXO: ACESSAR CONTA
-    OpcaoMU -->|2| ListarContas[Listar contas do Usuario]:::process
-    ListarContas --> SelecionarNum[Solicitar numero da Conta]:::process
-    SelecionarNum --> DefinirSessaoConta[Definir Conta como ativa na sessao]:::process
-    
-    %% OPERACOES
-    DefinirSessaoConta --> MenuOperacoes[Exibir Operacoes: 1. Saldo, 2. Saque, 3. Deposito, 4. Transferencia, 5. Pagamento, 6. Extrato, 7. Voltar]:::process
-    MenuOperacoes --> OpcaoMO{Qual operacao?}:::decision
-    
-    OpcaoMO -->|1| GetSaldo[Exibir Saldo]:::process
-    OpcaoMO -->|2| InputSaque[Processar Saque]:::process
-    OpcaoMO -->|3| InputDep[Processar Deposito]:::process
-    OpcaoMO -->|4| InputTransf[Processar Transferencia]:::process
-    OpcaoMO -->|5| InputPag[Processar Pagamento]:::process
-    OpcaoMO -->|6| GetHist[Exibir Extrato]:::process
-    OpcaoMO -->|7| MenuUsuario
-    
-    GetSaldo --> MenuOperacoes
-    InputSaque --> MenuOperacoes
-    InputDep --> MenuOperacoes
-    InputTransf --> MenuOperacoes
-    InputPag --> MenuOperacoes
-    GetHist --> MenuOperacoes
-    
-    OpcaoMP -->|3| Fim([Fim: Encerrar Programa]):::endpoint
+flowchart TD
+    Start([Inicio: executar App.main]) --> Main[Main cria Scanner, UserRepository e UsuarioService]
+    Main --> MenuPrincipal[Exibir menu principal]
+    MenuPrincipal --> Opcao{Opcao selecionada}
+
+    Opcao -->|1. Cadastre-se| DadosCadastro[Solicitar nome, CPF, tipo de conta e senha]
+    DadosCadastro --> ServiceCadastro[UsuarioService.cadastrarUsuario]
+    ServiceCadastro --> RepoCadastro[UserRepository.newUser]
+    RepoCadastro --> MsgCadastro[Exibir usuario cadastrado com sucesso]
+    MsgCadastro --> MenuPrincipal
+
+    Opcao -->|2. Atualizar cadastro| SolicitaCpfAtualizar[Solicitar CPF]
+    SolicitaCpfAtualizar --> ServiceAtualizar[UsuarioService.atualizarUsuario]
+    ServiceAtualizar --> RepoAtualizar[UserRepository.upDateUser]
+    RepoAtualizar --> MsgAtualizar[Exibir usuario atualizado com sucesso]
+    MsgAtualizar --> MenuPrincipal
+
+    Opcao -->|3. Deletar cadastro| SolicitaCpfDeletar[Solicitar CPF]
+    SolicitaCpfDeletar --> ServiceDeletar[UsuarioService.deletarUsuario]
+    ServiceDeletar --> RepoDeletar[UserRepository.deleteUser]
+    RepoDeletar --> MsgDeletar[Exibir usuario deletado com sucesso]
+    MsgDeletar --> MenuPrincipal
+
+    Opcao -->|4. Visualizar cadastro| SolicitaCpfVisualizar[Solicitar CPF]
+    SolicitaCpfVisualizar --> ServiceBuscar[UsuarioService.getUsuario]
+    ServiceBuscar --> UsuarioExiste{Usuario encontrado?}
+    UsuarioExiste -->|Sim| MostrarDados[Exibir nome, CPF e tipo de conta]
+    UsuarioExiste -->|Nao| MostrarNaoEncontrado[Exibir usuario nao encontrado]
+    MostrarDados --> MenuPrincipal
+    MostrarNaoEncontrado --> MenuPrincipal
+
+    Opcao -->|5. Criar conta bancaria| MenuContas[Exibir tipos de conta]
+    MenuContas --> TipoConta{Tipo selecionado}
+    TipoConta -->|1. Corrente| DadosContaCorrente[Solicitar dados do titular]
+    TipoConta -->|2. Investimento| DadosContaInvestimento[Solicitar dados do titular]
+    TipoConta -->|3. Poupanca| DadosContaPoupanca[Solicitar dados do titular]
+    TipoConta -->|4. Salario| DadosContaSalario[Solicitar dados do titular]
+    TipoConta -->|5. Sair| MenuPrincipal
+    DadosContaCorrente --> ConfirmarDados{Dados corretos?}
+    DadosContaInvestimento --> ConfirmarDados
+    DadosContaPoupanca --> ConfirmarDados
+    DadosContaSalario --> ConfirmarDados
+    ConfirmarDados -->|S| ContaCriada[Exibir conta criada]
+    ConfirmarDados -->|N| MenuContas
+    ContaCriada --> MenuPrincipal
+
+    Opcao -->|6. Acessar conta| SemImplementacao[Opcao listada, sem case implementado no switch]
+    SemImplementacao --> MenuPrincipal
+
+    Opcao -->|7. Sair| Fim([Fechar Scanner e encerrar])
+    Opcao -->|Entrada invalida| ErroOpcao[Exibir opcao invalida]
+    ErroOpcao --> MenuPrincipal
+
+
+    class Start,Fim endpoint
+    class Opcao,UsuarioExiste,TipoConta,ConfirmarDados decision
+    class Main,MenuPrincipal,DadosCadastro,ServiceCadastro,RepoCadastro,MsgCadastro,SolicitaCpfAtualizar,ServiceAtualizar,RepoAtualizar,MsgAtualizar,SolicitaCpfDeletar,ServiceDeletar,RepoDeletar,MsgDeletar,SolicitaCpfVisualizar,ServiceBuscar,MostrarDados,MostrarNaoEncontrado,MenuContas,DadosContaCorrente,DadosContaInvestimento,DadosContaPoupanca,DadosContaSalario,ContaCriada,SemImplementacao,ErroOpcao process
 ```
-## Processo de Software
-
-Este projeto foi desenvolvido com uma abordagem ágil incremental, seguindo práticas de divisão de responsabilidades e entregas iterativas. O grupo repartiu as atividades entre:
-
-- Modelagem e design de requisitos
-- Implementação do fluxo de cadastro e autenticação
-- Separação de serviços e repositórios
-- Adição de histórico de transações e investimentos
-- Testes unitários e ajustes de arquitetura
-
-## Requisitos de Software
-
-### Requisitos funcionais
-- Cadastro de usuário com escolha do tipo de conta no momento da criação
-- Autenticação por CPF e senha
-- Atualização e exclusão de cadastro apenas após login
-- Depósito, saque, transferência por CPF e visualização de saldo
-- Histórico de movimentações completo (depósito, saque, PIX, investimento)
-- Investimentos com cálculo simples de retorno e registro em extrato
-- Menu subdividido em opções de cadastro e operações financeiras
-
-### Requisitos não funcionais
-- Implementação em Java com Gradle
-- Arquitetura modular com camadas de Controller, Service, Repository e Model
-- Persistência em memória para o protótipo
-- Código com alta coesão e baixo acoplamento
-
-## Modelo de Software
-
-### Diagrama de fluxo
-
-```mermaid
-graph TD
-    Start([Início]) --> MenuPrincipal
-    MenuPrincipal -->|1| Cadastro
-    MenuPrincipal -->|2| Login
-    MenuPrincipal -->|3| Sair
-    Cadastro --> FimCadastro
-    Login --> SessaoUsuario
-    SessaoUsuario -->|Opções de cadastro| MenuCadastro
-    SessaoUsuario -->|Operações financeiras| MenuFinanceiro
-    MenuFinanceiro --> Historico
-    MenuFinanceiro --> Historico
-    MenuFinanceiro --> Investimentos
-    MenuFinanceiro --> Logout
-```
-
-### Diagrama de classes
-
+## Diagrama de Classes:
 ```mermaid
 classDiagram
+    direction TB
+
+    class App {
+        +main(args: String[])$ void
+    }
+
+    class Main {
+        +main(args: String[])$ void
+    }
+
     class User {
-        +String name
-        +String cpf
-        +String password
-        +TipoConta tipoDeConta
-        +double saldo
-        +List<Transacao> transacoes
-        +List<Investimento> investimentos
-        +deposit(double)
-        +withdraw(double)
-        +addTransacao(Transacao)
-        +addInvestimento(Investimento)
+        -String name
+        -String cpf
+        -String password
+        -String tipoDeConta
     }
-    class UsuarioService {
-        +cadastrarUsuario(...)
-        +authenticate(...)
-        +atualizarUsuario(...)
-        +deletarUsuario(...)
-    }
-    class FinancaService {
-        +depositar(...)
-        +sacar(...)
-        +transferir(...)
-        +investir(...)
-    }
+
     class UserRepository {
-        +saveUser(User)
-        +getUser(String)
-        +updateUser(String, User)
-        +deleteUser(String)
+        -Map~String, User~ users
+        +newUser(user: User, tipoDeconta: String) User
+        +upDateUser(cpf: String, updatedUser: User) boolean
+        +deleteUser(cpf: String) boolean
+        +getUser(cpf: String) User
     }
-    class Transacao {
-        +TipoTransacao tipo
-        +double valor
-        +LocalDateTime dataHora
-        +String descricao
+
+    class Usuario {
+        -String nome
+        -String CPF
+        -int idade
+        -String telefone
+        -String email
+        +imprimirDados() void
     }
+
+    class TipoConta {
+        <<enumeration>>
+        CORRENTE
+        INVESTIMENTO
+        POUPANCA
+        SALARIO
+    }
+
+    class Pagamento {
+        <<interface>>
+        +pagar(valor: double) void
+    }
+
+    class UsuarioService {
+        ~UserRepository userRepository
+        -User usuario
+        +cadastrarUsuario(nome, CPF, tipoDeConta, password) void
+        +atualizarUsuario(CPF, usuarioAtualizado) void
+        +deletarUsuario(CPF) void
+        +getUsuario(CPF) User
+    }
+
+    class Conta {
+        <<abstract>>
+        #double saldo
+        #String numeroConta
+        #String titular
+        #Usuario usuario
+        #TipoConta tipoConta
+    }
+
+    class ContaCorrente {
+        +depositar(valor: double) void
+        +sacar(valor: double) void
+    }
+
+    class ContaInvestimento {
+        +depositar(valor: double) void
+        +sacar(valor: double) void
+        +investir(investimento: Investimento) void
+    }
+
+    class ContaPoupanca {
+        +depositar(valor: double) void
+        +renderJuros(taxa: double) void
+    }
+
+    class ContaSalario {
+        +sacar(valor: double) void
+    }
+
     class Investimento {
-        +String nome
-        +double valor
-        +LocalDate dataDeRetirada
-        +double retorno
-        +calcularRetorno()
+        -String nome
+        -double valor
+        ~LocalDate dataDeRetirada
+        ~double retorno
+        +calcularRetorno() double
     }
 
-    User --> UserRepository
-    UsuarioService --> UserRepository
-    FinancaService --> UserRepository
-    User --> Transacao
-    User --> Investimento
+    class Transacao {
+    }
+
+    %% Relacionamentos do Fluxo Principal
+    App ..> Main : chama
+    Main --> UserRepository : instancia
+    Main --> UsuarioService : instancia
+    Main ..> Usuario : cria dados de conta
+    UsuarioService --> UserRepository : utiliza
+    UsuarioService --> User : gerencia
+    UserRepository "1" o--> "*" User : armazena
+
+    %% Core Business e Domínio
+    Conta "1" --> "1" Usuario : pertence a
+    Conta "1" --> "1" TipoConta : define tipo
+    Conta "1" *--> "*" Transacao : possui histórico de
+
+    %% Estrutura de Herança
+    ContaCorrente --|> Conta : estende
+    ContaInvestimento --|> Conta : estende
+    ContaPoupanca --|> Conta : estende
+    ContaSalario --|> Conta : estende
+
+    %% Implementações e Dependências de Métodos
+    ContaCorrente ..|> Pagamento : implementa
+    ContaInvestimento ..> Investimento : utiliza
 ```
+## Diagrama de Casos de Uso:
+```mermaid
+graph LR
+    %% Definição do Ator
+    Usuario((Usuário))
 
-## Princípios e Propriedades de Projeto
+    %% Fronteira do Sistema
+    subgraph Sistema_Bancario [Sistema Bancário / App]
+        UC1(Cadastrar Usuário)
+        UC2(Atualizar Cadastro)
+        UC3(Deletar Cadastro)
+        UC4(Visualizar Cadastro)
+        UC5(Criar Conta Bancária)
+        UC6(Acessar Conta)
+        UC7(Utilizar metodos da conta)
 
-O projeto aplica os princípios a seguir:
+        %% Especializações/Extensões de Criar Conta
+        UC5_1(Criar Conta Corrente)
+        UC5_2(Criar Conta Investimento)
+        UC5_3(Criar Conta Poupança)
+        UC5_4(Criar Conta Salário)
+    end
 
-- Integridade conceitual: cada classe representa um elemento de domínio claro
-- Coesão: `UsuarioService` trata apenas de cadastro e autenticação, `FinancaService` gerencia finanças
-- Baixo acoplamento: serviços dependem de `UserRepository` por injeção no construtor
-- Ocultação de informação: atributos privados com getters/setters controlados
-- Princípios SOLID: separação de responsabilidades e injeção de dependência
-- Preferência por composição: `User` compõe `Transacao` e `Investimento`
-- Lei de Demeter: métodos operam sobre objetos próximos e evitam navegação profunda
+    %% Relacionamentos do Ator com os Casos de Uso Principais
+    Usuario --> UC1
+    Usuario --> UC2
+    Usuario --> UC3
+    Usuario --> UC4
+    Usuario --> UC5
+    Usuario --> UC6
+    Usuario --> UC7
 
-## Testes de Software
+    %% Relacionamentos de Extensão para os Tipos de Conta
+    UC5_1 -.->|"<<extend>>"| UC5
+    UC5_2 -.->|"<<extend>>"| UC5
+    UC5_3 -.->|"<<extend>>"| UC5
+    UC5_4 -.->|"<<extend>>"| UC5
 
-O projeto utiliza JUnit para testes unitários. A dependência Mockito foi adicionada para suportar mocks em futuras validações de serviço contra dependências externas.
-
-| Cobertura | Status |
-| :--- | :--- |
-| Testes de modelo de usuário | existente em `app/src/test/java` |
-| Testes de contas e investimentos | existente em `app/src/test/java` |
-| Suporte a mocks | dependência adicionada |
-
----
+    style Usuario fill:#fff,stroke:#333,stroke-width:2px
+```
 
 ## Tecnologias e Metodologias
 
@@ -227,6 +266,7 @@ Para rodar o projeto localmente, siga os passos abaixo:
    ```bash
    git clone [https://github.com/daviiq/MALDBANK](https://github.com/daviiq/MALDBANK)
    ```
+2. **Rodar o App**
    Pré-requisitos: Certifique-se de ter o JDK 17 ou superior instalado em sua máquina.
 
 ## Equipe de Desenvolvimento
@@ -238,5 +278,3 @@ Este projeto é um esforço colaborativo dos seguintes membros:
 * **Marcos Júnior Lemes**
 * **Lucas Luiz Guesser**
 
-**Colaborador **
-* *Monica Cancellier* 
