@@ -7,9 +7,9 @@ import org.example.Entities.Investimento;
 import org.example.Model.User;
 import org.example.Repository.UserRepository;
 import org.example.Repositories.TipoConta;
-import org.example.Service.ConsoleUtil;
-import org.example.Service.FinancaService;
-import org.example.Service.UsuarioService;
+import org.example.Services.ConsoleUtil;
+import org.example.Services.FinancaService;
+import org.example.Services.UsuarioService;
 
 public class Main {
     public static void main(String[] args) {

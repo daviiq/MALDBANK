@@ -3,7 +3,7 @@ package org.example;
 import org.example.Model.User;
 import org.example.Repositories.TipoConta;
 import org.example.Repository.UserRepository;
-import org.example.Service.UsuarioService;
+import org.example.Services.UsuarioService;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 

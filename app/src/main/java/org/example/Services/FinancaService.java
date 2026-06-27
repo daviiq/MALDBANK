@@ -1,4 +1,4 @@
-package org.example.Service;
+package org.example.Services;
 
 import org.example.Entities.Investimento;
 import org.example.Entities.TipoTransacao;

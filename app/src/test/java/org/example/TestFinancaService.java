@@ -4,7 +4,7 @@ import org.example.Entities.Investimento;
 import org.example.Entities.TipoTransacao;
 import org.example.Model.User;
 import org.example.Repository.UserRepository;
-import org.example.Service.FinancaService;
+import org.example.Services.FinancaService;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;

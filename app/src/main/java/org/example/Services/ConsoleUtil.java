@@ -1,4 +1,4 @@
-package org.example.Service;
+package org.example.Services;
 
 public class ConsoleUtil {
     public static void limparTela() {
