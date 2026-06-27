@@ -7,6 +7,9 @@ public class Usuario {
     private String telefone;
     private String email;
 
+    public Usuario() {
+    }
+
     public Usuario(String nome, String CPF, int idade, String telefone, String email) {
         this.nome = nome;
         this.CPF = CPF;

@@ -1,10 +1,12 @@
+package org.example;
+
 import org.example.Entities.ContaPoupanca;
 import org.example.Repositories.TipoConta;
 import org.example.Repositories.Usuario;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-class TesteContaPoupanca {
+class TestContaPoupanca {
 
     Usuario usuario = new Usuario("login", "123", 30, "33468613", "email@gmail.com");
     ContaPoupanca contaPoupanca = new ContaPoupanca("login", usuario, "123");
@@ -23,11 +25,6 @@ class TesteContaPoupanca {
     void setup() {
         Usuario usuario = new Usuario("login", "123", 30, "33468613", "email@gmail.com");
         contaPoupanca = new ContaPoupanca("login", usuario, "123");
-    }
-
-    @AfterEach
-    void tearDown() {
-        System.out.println("Teste concluído com sucesso.");
     }
 
     @Test

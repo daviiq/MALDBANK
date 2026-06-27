@@ -1,3 +1,5 @@
+package org.example;
+
 import org.example.Entities.ContaInvestimento;
 import org.example.Entities.Investimento;
 import org.example.Repositories.TipoConta;
@@ -6,7 +8,7 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
 
-class TesteContaInvestimento {
+class TestContaInvestimento {
 
     Usuario usuario = new Usuario("login", "123", 30, "33468613", "email@gmail.com");
     ContaInvestimento contaInvestimento = new ContaInvestimento("login", usuario, "123");
@@ -25,11 +27,6 @@ class TesteContaInvestimento {
     void setup() {
         Usuario usuario = new Usuario("login", "123", 30, "33468613", "email@gmail.com");
         contaInvestimento = new ContaInvestimento("login", usuario, "123");
-    }
-
-    @AfterEach
-    void tearDown() {
-        System.out.println("Teste concluído com sucesso.");
     }
 
     @Test

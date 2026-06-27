@@ -1,10 +1,12 @@
+package org.example;
+
 import org.example.Entities.ContaSalario;
 import org.example.Repositories.TipoConta;
 import org.example.Repositories.Usuario;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-class TesteContaSalario {
+class TestContaSalario {
 
     Usuario usuario = new Usuario("login", "123", 30, "33468613", "email@gmail.com");
     ContaSalario contaSalario = new ContaSalario("login", usuario, "123");
@@ -23,11 +25,6 @@ class TesteContaSalario {
     void setup() {
         Usuario usuario = new Usuario("login", "123", 30, "33468613", "email@gmail.com");
         contaSalario = new ContaSalario("login", usuario, "123");
-    }
-
-    @AfterEach
-    void tearDown() {
-        System.out.println("Teste concluído com sucesso.");
     }
 
     @Test
